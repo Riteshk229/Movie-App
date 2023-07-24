@@ -1,14 +1,18 @@
-import { useEffect, useState, useReducer} from 'react'
+import { useEffect,useReducer} from 'react'
 import { data } from '../data'
 import Navbar from './Navbar'
 import MovieCard from './MovieCard'
 import '../styles/App.css'
-import { addMovies } from '../actions'
+import { addMovies, setShowFavourites } from '../actions'
 
 function App(props) {
   const forceUpdate = useReducer(x => x + 1, 0)[1];
   const store = props.store;
-  const {list,favourites} = props.store.getState();
+  const {
+    list,
+    favourites,
+    showFavourites
+  } = props.store.getState(); // {list: [], favourites: [], showfavorites: boolean}
 
   useEffect(() => {
     store.subscribe(() => {
@@ -32,6 +36,12 @@ function App(props) {
     }
     return false;
   }
+
+  const onChangeTab = (val) => {
+    store.dispatch(setShowFavourites(val))
+  }
+
+  const displayMovies = showFavourites ? favourites : list;
   
   return (
     <>
@@ -40,12 +50,18 @@ function App(props) {
         <Navbar />
         <div className="main">
           <div className="tabs">
-            <div className="tab">Movies</div>
-            <div className="tab">Favourites</div>
+            <div
+              className={`tab ${showFavourites ? '' : 'active-tabs'}`}
+              onClick={() => onChangeTab(false)}
+            >Movies</div>
+            <div
+              className={`tab ${showFavourites ? 'active-tabs' : ''}`}
+              onClick={()=>onChangeTab(true)}
+            >Favourites</div>
           </div>
 
           <div className="list">
-            {list.map((movie,index) => (
+            {displayMovies.map((movie,index) => (
               <MovieCard
                 movie={movie}
                 key={`movie-${index}`}
@@ -54,6 +70,8 @@ function App(props) {
               />
             ))}
           </div>
+
+          {displayMovies.length == 0 && <div className='no-movies'> No Movies to display  </div>}
         </div>
       </div>
     </>
