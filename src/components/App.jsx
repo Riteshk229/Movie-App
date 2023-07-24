@@ -20,6 +20,18 @@ function App(props) {
     store.dispatch(addMovies(data))
     console.log("state",store.getState());
   }, []);
+
+  const isMovieFavorite  = (movie) => {
+    const { favourites } = store.getState();
+    
+    const index = favourites.indexOf(movie);
+
+    if (index !== -1) {
+      // found the moovie
+      return true;
+    }
+    return false;
+  }
   
   return (
     <>
@@ -34,7 +46,12 @@ function App(props) {
 
           <div className="list">
             {list.map((movie,index) => (
-              <MovieCard movie={movie} key={`movie-${index}`} />
+              <MovieCard
+                movie={movie}
+                key={`movie-${index}`}
+                store={store}
+                isFavourite={isMovieFavorite(movie)}
+              />
             ))}
           </div>
         </div>
