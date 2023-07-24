@@ -175,6 +175,12 @@ body {
   border-radius: 10px;
   color: #fff;
 }
+
+.favourite-btn:hover {
+  background-color: #191b1d;
+  color: #fff;
+  cursor: pointer;
+}
 .unfavourite-btn {
   background-color: #db2828;
   color: #fff;
