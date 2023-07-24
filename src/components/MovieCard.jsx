@@ -1,6 +1,5 @@
 const MovieCard = (prop) => {
     const movie = prop.movie;
-    console.log(movie.Title);
     return (
         <>
             <div className="movie-card">
