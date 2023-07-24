@@ -8,17 +8,17 @@ import movies from './reducers'
 
 const store = createStore(movies);
 console.log("store", store);
-console.log("Before state", store.getState());
+// console.log("Before state", store.getState());
 
-store.dispatch({
-  type: "ADD_MOVIES",
-  movies : [{name : 'Avengers'}]
-})
+// store.dispatch({
+//   type: "ADD_MOVIES",
+//   movies : [{name : 'Avengers'}]
+// })
 
-console.log("After state", store.getState());
+// console.log("After state", store.getState());
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
-    <App />
+    <App store={store} />
   // </React.StrictMode>
 ,)
