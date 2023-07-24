@@ -3,6 +3,7 @@ import { data } from '../data'
 import Navbar from './Navbar'
 import MovieCard from './MovieCard'
 import '../styles/App.css'
+import { addMovies } from '../actions'
 
 function App(props) {
   const forceUpdate = useReducer(x => x + 1, 0)[1];
@@ -16,10 +17,7 @@ function App(props) {
     })
     // make api call
     // dispatch action
-    store.dispatch({
-      type: "ADD_MOVIES",
-      movies : data
-    })
+    store.dispatch(addMovies(data))
     console.log("state",store.getState());
   }, []);
   
