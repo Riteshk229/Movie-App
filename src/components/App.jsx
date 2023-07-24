@@ -8,7 +8,7 @@ import { addMovies } from '../actions'
 function App(props) {
   const forceUpdate = useReducer(x => x + 1, 0)[1];
   const store = props.store;
-  const {list} = props.store.getState();
+  const {list,favourites} = props.store.getState();
 
   useEffect(() => {
     store.subscribe(() => {

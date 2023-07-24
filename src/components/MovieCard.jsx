@@ -1,23 +1,17 @@
-import { addFavourite } from "../actions";
+import { removeFromFavourites, addToFavourites } from "../actions";
 
 const MovieCard = (props) => {
     const { movie, store, isFavourite } = props;
-    console.log("favstatus", isFavourite);
+    // console.log("favstatus", isFavourite);
 
     const handleFavouriteClick = () => {
-        store.dispatch(addFavourite(movie));
-        store.subscribe(() => {
-            console.log("favourite list updated");
-        })
+        store.dispatch(addToFavourites(movie));
         console.log("FavState", store.getState().favourites);
     }
 
     const handleUnFavouriteClick = () => {
-        // store.dispatch(addFavourite(movie));
-        // store.subscribe(() => {
-        //     console.log("favourite list updated");
-        // })
-        // console.log("FavState", store.getState().favourites);
+        store.dispatch(removeFromFavourites(movie));
+        console.log("FavState", store.getState().favourites);
     }
     return (
         <>
