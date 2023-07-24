@@ -8,7 +8,7 @@ import { addMovies } from '../actions'
 function App(props) {
   const forceUpdate = useReducer(x => x + 1, 0)[1];
   const store = props.store;
-  const movies = props.store.getState();
+  const {list} = props.store.getState();
 
   useEffect(() => {
     store.subscribe(() => {
@@ -33,7 +33,7 @@ function App(props) {
           </div>
 
           <div className="list">
-            {movies.map((movie,index) => (
+            {list.map((movie,index) => (
               <MovieCard movie={movie} key={`movie-${index}`} />
             ))}
           </div>
