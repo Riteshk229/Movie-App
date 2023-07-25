@@ -14,13 +14,22 @@ const logger = function ({ dispatch, getState }) {
   return function (next) {
     return function (action) {
       // middleware
+      console.log("From_logger1");
       console.log("ACTION_TYPE =", action.type);
       next(action);
     }
   }
 }
 
-const store = createStore(rootReducer,applyMiddleware(logger));
+// syntax 2
+const logger2 = ({dispatch,getState}) => (next) => (action) => {
+  // logger code
+  console.log("From_logger2");
+  console.log("ACTION_TYPE =", action.type);
+  next(action);
+}
+
+const store = createStore(rootReducer,applyMiddleware(logger2));
 console.log("store", store);
 // console.log("Before state", store.getState());
 
