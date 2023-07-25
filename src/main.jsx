@@ -1,12 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {legacy_createStore as createStore} from 'redux'
+import {legacy_createStore as createStore , applyMiddleware} from 'redux'
 
 import './styles/index.css'
 import App from './components/App'
 import rootReducer from './reducers'
 
-const store = createStore(rootReducer);
+// curried fuction logger(obj,next,action)
+// logger(obj)(next)(action)
+const logger = function ({ dispatch, getState }) {
+  // console.log('dispatch', dispatch);
+  // console.log('getState', getState);
+  return function (next) {
+    return function (action) {
+      // middleware
+      console.log("ACTION_TYPE =", action.type);
+      next(action);
+    }
+  }
+}
+
+const store = createStore(rootReducer,applyMiddleware(logger));
 console.log("store", store);
 // console.log("Before state", store.getState());
 
