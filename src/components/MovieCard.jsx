@@ -6,12 +6,12 @@ const MovieCard = (props) => {
 
     const handleFavouriteClick = () => {
         store.dispatch(addToFavourites(movie));
-        console.log("FavState", store.getState().favourites);
+        console.log("FavState", store.getState().movies.favourites);
     }
 
     const handleUnFavouriteClick = () => {
         store.dispatch(removeFromFavourites(movie));
-        console.log("FavState", store.getState().favourites);
+        console.log("FavState", store.getState().movies.favourites);
     }
     return (
         <>

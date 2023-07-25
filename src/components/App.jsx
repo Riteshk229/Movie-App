@@ -7,12 +7,15 @@ import { addMovies, setShowFavourites } from '../actions'
 
 function App(props) {
   const forceUpdate = useReducer(x => x + 1, 0)[1];
+  console.log('STATE', props.store.getState());  // {movies: {}, search: {}}
   const store = props.store;
+  const {movies} = props.store.getState();
+
   const {
     list,
     favourites,
     showFavourites
-  } = props.store.getState(); // {list: [], favourites: [], showfavorites: boolean}
+  } = movies;
 
   useEffect(() => {
     store.subscribe(() => {
@@ -26,7 +29,7 @@ function App(props) {
   }, []);
 
   const isMovieFavorite  = (movie) => {
-    const { favourites } = store.getState();
+    const { favourites } = movies;
     
     const index = favourites.indexOf(movie);
 
