@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {legacy_createStore as createStore , applyMiddleware} from 'redux'
+import { legacy_createStore as createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 
 import './styles/index.css'
 import App from './components/App'
@@ -25,11 +26,22 @@ const logger = function ({ dispatch, getState }) {
 const logger2 = ({dispatch,getState}) => (next) => (action) => {
   // logger code
   console.log("From_logger2");
-  console.log("ACTION_TYPE =", action.type);
+  if (typeof action !== 'function') {
+    console.log("ACTION_TYPE =", action.type);
+  }
   next(action);
 }
 
-const store = createStore(rootReducer,applyMiddleware(logger2));
+// const thunk = ({ dispatch, getState}) => (next) => (action) => {
+//   console.log("From_Thunk");
+//   if (typeof action === 'function') {
+//     action(dispatch);
+//     return;
+//   }
+//   next(action);
+// }
+
+const store = createStore(rootReducer,applyMiddleware(logger2,thunk));
 console.log("store", store);
 // console.log("Before state", store.getState());
 

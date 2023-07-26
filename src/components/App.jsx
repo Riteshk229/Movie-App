@@ -50,7 +50,7 @@ function App(props) {
     <>
       {console.log("render")}
       <div className="App">
-        <Navbar />
+        <Navbar dispatch={store.dispatch} />
         <div className="main">
           <div className="tabs">
             <div
