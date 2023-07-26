@@ -9,7 +9,7 @@ function App(props) {
   const forceUpdate = useReducer(x => x + 1, 0)[1];
   console.log('STATE', props.store.getState());  // {movies: {}, search: {}}
   const store = props.store;
-  const {movies} = props.store.getState();
+  const {movies, search} = props.store.getState();
 
   const {
     list,
@@ -50,7 +50,10 @@ function App(props) {
     <>
       {console.log("render")}
       <div className="App">
-        <Navbar dispatch={store.dispatch} />
+        <Navbar
+          search={search}
+          dispatch={store.dispatch}
+        />
         <div className="main">
           <div className="tabs">
             <div
