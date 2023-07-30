@@ -61,7 +61,8 @@ export function movies(state = initialMoviesState, action) {
 }
 
 const initialSearchState = {
-    results: {},
+    // results: {},
+    results : [],
     showSearchResults: false,
 }
 export function search(state = { initialSearchState }, action) {
@@ -83,10 +84,10 @@ export function search(state = { initialSearchState }, action) {
     }
 }
 
-const initialRootState = {
-    movies: initialMoviesState,
-    search: initialSearchState
-}
+// const initialRootState = {
+//     movies: initialMoviesState,
+//     search: initialSearchState
+// }
 
 // export default function rootReducer(state = initialRootState, action) {
 //     return {

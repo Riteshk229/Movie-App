@@ -4,6 +4,7 @@ import Navbar from './Navbar'
 import MovieCard from './MovieCard'
 import '../styles/App.css'
 import { addMovies, setShowFavourites } from '../actions'
+import { storeContext } from "../main";
 
 function App(props) {
   const forceUpdate = useReducer(x => x + 1, 0)[1];
@@ -45,43 +46,50 @@ function App(props) {
   }
 
   const displayMovies = showFavourites ? favourites : list;
-  
+
   return (
-    <>
-      {console.log("render")}
-      <div className="App">
-        <Navbar
-          search={search}
-          dispatch={store.dispatch}
-        />
-        <div className="main">
-          <div className="tabs">
-            <div
-              className={`tab ${showFavourites ? '' : 'active-tabs'}`}
-              onClick={() => onChangeTab(false)}
-            >Movies</div>
-            <div
-              className={`tab ${showFavourites ? 'active-tabs' : ''}`}
-              onClick={()=>onChangeTab(true)}
-            >Favourites</div>
-          </div>
+    <storeContext.Consumer>
+      {(store) => {
+          return (
+            <>
+              {console.log("render")}
+              <div className="App">
+                <Navbar
+                  search={search}
+                  dispatch={store.dispatch}
+                />
+                <div className="main">
+                  <div className="tabs">
+                    <div
+                      className={`tab ${showFavourites ? '' : 'active-tabs'}`}
+                      onClick={() => onChangeTab(false)}
+                    >Movies</div>
+                    <div
+                      className={`tab ${showFavourites ? 'active-tabs' : ''}`}
+                      onClick={()=>onChangeTab(true)}
+                    >Favourites</div>
+                  </div>
 
-          <div className="list">
-            {displayMovies.map((movie,index) => (
-              <MovieCard
-                movie={movie}
-                key={`movie-${index}`}
-                store={store}
-                isFavourite={isMovieFavorite(movie)}
-              />
-            ))}
-          </div>
+                  <div className="list">
+                    {displayMovies.map((movie,index) => (
+                      <MovieCard
+                        movie={movie}
+                        key={`movie-${index}`}
+                        store={store}
+                        isFavourite={isMovieFavorite(movie)}
+                      />
+                    ))}
+                  </div>
 
-          {displayMovies.length == 0 && <div className='no-movies'> No Movies to display  </div>}
-        </div>
-      </div>
-    </>
-  )
+                  {displayMovies.length == 0 && <div className='no-movies'> No Movies to display  </div>}
+                </div>
+              </div>
+            </>
+          )
+      }}
+    </storeContext.Consumer>
+  );
+  
 }
 
 export default App
